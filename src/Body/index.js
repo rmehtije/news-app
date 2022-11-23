@@ -6,7 +6,8 @@ import NewsCardComponent from './NewsCard';
 import FormComponent from './Form';
 import { getEverything } from '../services/apiServices';
 import { useDispatch, useSelector } from 'react-redux';
-import { setErrorMessage, setTotalResults } from '../services/stateService';
+import { setErrorMessage, setTotalResults, setSearchParams } from '../services/stateService';
+import { useParams, Link } from 'react-router-dom';
 import './News.scss';
 
 function NewsGroupComponet() {
@@ -17,14 +18,26 @@ function NewsGroupComponet() {
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
-    const dispatch = useDispatch();
+    const { q, lang } = useParams();
 
+    const dispatch = useDispatch();
+    
     const searchParams = useSelector((state) => state.searchParams);
 
     useEffect(() => {
+        if(lang && searchParams.language !== lang){
+            dispatch(setSearchParams({
+                ...searchParams,
+                language: lang,
+            }));
+            return;
+        }
         (async function () {
             try {
-                const response = await getEverything(searchParams);
+                const response = await getEverything({
+                    ...searchParams,
+                    q: q || searchParams.q,
+                });
                 const responseData = await response.json();
                 if (responseData.status === 'error') {
                     throw responseData;
@@ -35,13 +48,14 @@ function NewsGroupComponet() {
                 dispatch(setErrorMessage(error.message));
             }
         })();
-    }, [searchParams, dispatch]);
+    }, [searchParams, dispatch, q, lang]);
 
     return (
         <>
             <Button variant="outline-primary" onClick={handleShow} className="mb-3">
                 Search
             </Button>
+            <Link to="/bitcoin">Bitcoin today</Link>
             <Row xs={1} md={2} lg={3} className="g-2">
                 {articles.map((article, idx) => (
                     <Col key={idx}>
