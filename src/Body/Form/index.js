@@ -29,7 +29,18 @@ function FormComponent({ show, handleClose, searchProps }) {
         return str[0].toUpperCase() + str.substring(1);
     }
 
+    // Sobytija eto zaimadejstvije mezhdu pol'zovateljam i nahsem prilozhenijem
+    // Pol'zovatel' 4toto delajet v brauzere, brauzer lovit eti dvizhenije i peredajot informaciju nashemu prilozheniju
+    // V zavisimosti ot triggerov nashe prilozhenije obrabatqvajet poluchennqje dannye
+    // Triggery bqvajut raznqje, naprimer triger pri nazhatii knopki mqshki nazqvajetsa onClick
+    // Trigery veshajutsa na elementy za kotorqmi my hotim sledit'
+    // Trigery zapuskajut obrabotchki
+    // Obratchiki eto obqchnqje funkcqii
+    // Brauzer peredajot nashqm obrabotchikam polnqj otchjot o dejstvii/sobytii v vide objecta DOM
+    // Glavnoe svojstvo etogo objecta javljatsa 'target' v kotorom hranitsa informacija ob elemnte nad kotorqm proizoshlo sobqtije
     async function handleSubmit(event) {
+        // preventDefault eta funkcija zastovljajet brauzer prekratit' vqpolnjat' izvestnoe jemu dejstvije etogo sobitija
+        // v nashem slu4aje eto zastovljajet otmenit' otpravku dannyh na server.
         event.preventDefault();
      
         const data = {

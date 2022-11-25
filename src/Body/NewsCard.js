@@ -5,9 +5,17 @@ import NewsModalComponent from './NewsModal';
 import moment from 'moment';
 
 function NewsCardComponent({ article }) {
-
+    // useState = eta funkcija/hook kotoraja pomogajet rabotat' s sostojanijem komponenta
+    // Sostojanie eta infromacija kotoruju komponent soderzhqt v sebe.
+    // Pri izmenenii sostajanija zapuskajetsa novaja otrisovka/render komponenta.
+    // U kazhdova sostojanije jest svojo iznachal'noe znachenije i funkcija kotoraja menjajet eto znachenije
+    // useState prinemajet kak argument iznachal'noe zna4enije sostojanija i vqdajot massive s dvumja znachenijami
+    // 1: inzachal'noe sostojanie
+    // 2: funkciju dlja izmenenija sostojanija
     const [show, setShow] = useState(false);
 
+    // Card component - eta komponent iz npm paketa react-bootstrap.
+    // react-bootstrap eta biblioteka s gotovymi react komponentami napisany s ispol'zovnaiem bootstrap css toolkit
     return (
         <>
             <Card onClick={() => setShow(true)}>
