@@ -8,7 +8,7 @@ function HeaderComponet() {
     return (
         <Navbar bg="light" className="mb-3">
             <Container>
-                <Link to="/" className="navbar-brand">
+                <Link to="/news-app" className="navbar-brand">
                     <img
                         alt=""
                         src={logo}
@@ -20,7 +20,7 @@ function HeaderComponet() {
                 </Link>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link to="/contact" className="nav-link">Contact</Link>
+                        <Link to="/news-app/contact" className="nav-link">Contact</Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

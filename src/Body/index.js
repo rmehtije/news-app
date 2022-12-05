@@ -4,13 +4,13 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import NewsCardComponent from './NewsCard';
 import FormComponent from './Form';
-import { getEverything } from '../services/apiServices';
+import { getEverything, getEverythingDummy } from '../services/apiServices';
 import { useDispatch, useSelector } from 'react-redux';
 import { setErrorMessage, setTotalResults, setSearchParams } from '../services/stateService';
 import { useParams, Link } from 'react-router-dom';
 import './News.scss';
 
-function NewsGroupComponet() {
+function BodyComponent() {
 
     const [show, setShow] = useState(false);
     const [articles, setArticles] = useState([]);
@@ -46,6 +46,9 @@ function NewsGroupComponet() {
                 dispatch(setTotalResults(responseData.totalResults));
             } catch (error) {
                 dispatch(setErrorMessage(error.message));
+                const response = await getEverythingDummy();
+                const responseData = await response.json();
+                setArticles(responseData.articles);
             }
         })();
     }, [searchParams, dispatch, q, lang]);
@@ -55,7 +58,7 @@ function NewsGroupComponet() {
             <Button variant="outline-primary" onClick={handleShow} className="mb-3">
                 Search
             </Button>
-            <Link to="/bitcoin">Bitcoin today</Link>
+            <Link to="/news-app/bitcoin">Bitcoin today</Link>
             <Row xs={1} md={2} lg={3} className="g-2">
                 {articles.map((article, idx) => (
                     <Col key={idx}>
@@ -73,4 +76,4 @@ function NewsGroupComponet() {
     );
 }
 
-export default NewsGroupComponet;
+export default BodyComponent;
